@@ -1,11 +1,7 @@
-// import { Counter } from './features/counter/Counter';
-import { Children } from 'react';
 import './App.css';
 import Home from './pages/Home';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
-import { Provider } from 'react-redux'
-import store from './app/store'
 
 import {
   createBrowserRouter,
@@ -14,14 +10,23 @@ import {
   Link,
 } from 'react-router-dom';
 import Cart from './features/cart/Cart';
-import CartPage from './pages/CartPage'
-import ProductDetailPage from './pages/ProductDetailPage'
-import Checkout from './pages/Checkout'
+import CartPage from './pages/CartPage';
+import Checkout from './pages/Checkout';
+import ProductDetailPage from './pages/ProductDetailPage';
+import Protected from './features/auth/components/Protected';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectLoggedInUser } from './features/auth/authSlice';
+import { fetchItemsByUserIdAsync } from './features/cart/cartSlice';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home></Home>,
+    element: (
+      <Protected>
+        <Home></Home>
+      </Protected>
+    ),
   },
   {
     path: '/login',
@@ -33,24 +38,44 @@ const router = createBrowserRouter([
   },
   {
     path: '/cart',
-    element: <CartPage></CartPage>,
+    element: (
+      <Protected>
+        <CartPage></CartPage>
+      </Protected>
+    ),
   },
-  { 
+  {
     path: '/checkout',
-    element: <Checkout></Checkout>,
+    element: (
+      <Protected>
+        <Checkout></Checkout>
+      </Protected>
+    ),
   },
-  { 
+  {
     path: '/product-detail/:id',
-    element: <ProductDetailPage></ProductDetailPage>,
+    element: (
+      <Protected>
+        <ProductDetailPage></ProductDetailPage>
+      </Protected>
+    ),
   },
 ]);
 
 function App() {
+
+  const dispatch = useDispatch();
+  const user = useSelector(selectLoggedInUser);
+
+  useEffect(()=>{
+    if(user){
+      dispatch(fetchItemsByUserIdAsync(user.id))
+    }
+  },[dispatch, user])
+
   return (
     <div className="App">
-    <Provider store={store}>
     <RouterProvider router={router} />
-    </Provider>
     </div>
   );
 }
