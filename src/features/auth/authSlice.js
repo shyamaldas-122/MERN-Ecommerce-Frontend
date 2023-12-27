@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { checkUser, createUser, updateUser } from './authAPI';
+import { checkUser, createUser } from './authAPI';
+import { updateUser } from '../user/userAPI';
+
 
 const initialState = {
   loggedInUser: null,
@@ -51,8 +53,6 @@ export const counterSlice = createSlice({
       .addCase(createUserAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.loggedInUser = action.payload;
-        console.log("LoggedInUser in Slice=",state.loggedInUser);
-        // O/P: {email: 'two@gmail.com', password: 'Zxcvbnm1', id: 4}
       })
       .addCase(checkUserAsync.pending, (state) => {
         state.status = 'loading';
@@ -60,7 +60,6 @@ export const counterSlice = createSlice({
       .addCase(checkUserAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.loggedInUser = action.payload;
-        // O/P:state.loggedInUser= {email: 'two@gmail.com', password: 'Zxcvbnm1', id: 4}
       })
       .addCase(checkUserAsync.rejected, (state, action) => {
         state.status = 'idle';
