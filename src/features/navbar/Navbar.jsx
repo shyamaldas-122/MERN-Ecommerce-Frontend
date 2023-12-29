@@ -44,7 +44,7 @@ function NavBar({ children }) {
                       <Link to="/">
                         <img
                           className="h-8 w-8"
-                          src="../../../../ecommerce.png"
+                          src="/ecommerce.png"
                           alt="Your Company"
                         />
                       </Link>
@@ -183,6 +183,7 @@ function NavBar({ children }) {
                     </div>
                     <div className="ml-3">
                       <div className="text-base font-medium leading-none text-white">
+                        {/* this should come from userInfo */}
                         {user.name}
                       </div>
                       <div className="text-sm font-medium leading-none text-gray-400">
