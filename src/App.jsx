@@ -10,7 +10,11 @@ import ProductDetailPage from './pages/ProductDetailPage';
 import Protected from './features/auth/components/Protected';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { checkAuthAsync, selectLoggedInUser, selectUserChecked } from './features/auth/authSlice';
+import {
+  checkAuthAsync,
+  selectLoggedInUser,
+  selectUserChecked,
+} from './features/auth/authSlice';
 import { fetchItemsByUserIdAsync } from './features/cart/cartSlice';
 import PageNotFound from './pages/404';
 import OrderSuccessPage from './pages/OrderSuccessPage';
@@ -26,6 +30,7 @@ import AdminProductFormPage from './pages/AdminProductFormPage';
 import AdminOrdersPage from './pages/AdminOrdersPage';
 import { positions, Provider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
+import StripeCheckout from './pages/StripeCheckout';
 
 const options = {
   timeout: 5000,
@@ -138,6 +143,14 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: '/stripe-checkout/',
+    element: (
+      <Protected>
+        <StripeCheckout></StripeCheckout>
+      </Protected>
+    ),
+  },
+  {
     path: '/logout',
     element: <Logout></Logout>,
   },
@@ -156,16 +169,14 @@ function App() {
   const user = useSelector(selectLoggedInUser);
   const userChecked = useSelector(selectUserChecked);
 
-
-  useEffect(()=>{
-    dispatch(checkAuthAsync())
-  },[dispatch])
+  useEffect(() => {
+    dispatch(checkAuthAsync());
+  }, [dispatch]);
 
   useEffect(() => {
-    
     if (user) {
       dispatch(fetchItemsByUserIdAsync());
-       // we can get req.user by token on backend so no need to give in front-end
+      // we can get req.user by token on backend so no need to give in front-end
       dispatch(fetchLoggedInUserAsync());
     }
   }, [dispatch, user]);
@@ -173,9 +184,11 @@ function App() {
   return (
     <>
       <div className="App">
-       { userChecked && <Provider template={AlertTemplate} {...options}>
-          <RouterProvider router={router} />
-        </Provider>}
+        {userChecked && (
+          <Provider template={AlertTemplate} {...options}>
+            <RouterProvider router={router} />
+          </Provider>
+        )}
         {/* Link must be inside the Provider */}
       </div>
     </>
