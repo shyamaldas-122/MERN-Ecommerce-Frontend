@@ -20,7 +20,7 @@ const navigation = [
 ];
 const userNavigation = [
   { name: 'My Profile', link: '/profile' },
-  { name: 'My Orders', link: '/orders' },
+  { name: 'My Orders', link: '/my-orders' },
   { name: 'Sign out', link: '/logout' },
 ];
 
@@ -45,7 +45,7 @@ function NavBar({ children }) {
                       <Link to="/">
                         <img
                           className="h-8 w-8"
-                          src="/ecommerce.png"
+                          src="./ecommerce.png"
                           alt="Your Company"
                         />
                       </Link>
