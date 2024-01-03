@@ -11,6 +11,10 @@ import { selectItems } from '../cart/cartSlice';
 import { selectLoggedInUser } from '../auth/authSlice';
 import { selectUserInfo } from '../user/userSlice';
 
+const user = {
+  imageUrl:
+    'https://static.vecteezy.com/system/resources/thumbnails/006/487/912/small_2x/hacker-avatar-ilustration-free-vector.jpg',
+};
 
 const navigation = [
   { name: 'Products', link: '/', user: true },
@@ -45,7 +49,7 @@ function NavBar({ children }) {
                       <Link to="/">
                         <img
                           className="h-8 w-8"
-                          src="/ecommerce.png"
+                          src="./ecommerce.png"
                           alt="Your Company"
                         />
                       </Link>
@@ -99,7 +103,7 @@ function NavBar({ children }) {
                             <span className="sr-only">Open user menu</span>
                             <img
                               className="h-8 w-8 rounded-full"
-                              src={userInfo.imageUrl}
+                              src={user.imageUrl}
                               alt=""
                             />
                           </Menu.Button>
@@ -178,7 +182,7 @@ function NavBar({ children }) {
                     <div className="flex-shrink-0">
                       <img
                         className="h-10 w-10 rounded-full"
-                        src={userInfo.imageUrl}
+                        src={user.imageUrl}
                         alt=""
                       />
                     </div>
