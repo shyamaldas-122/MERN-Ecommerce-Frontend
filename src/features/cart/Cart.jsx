@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import { Grid } from 'react-loader-spinner';
 import Modal from '../common/Modal';
+import './../../product.css'
 
 export default function Cart() {
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ export default function Cart() {
             </h1>
             <div className="flow-root">
               {status === 'loading' ? (
+                <div className='spinnerContainer'>
                 <Grid
                   height="80"
                   width="80"
@@ -56,6 +58,7 @@ export default function Cart() {
                   wrapperClass=""
                   visible={true}
                 />
+                </div>
               ) : null}
               <ul className="-my-6 divide-y divide-gray-200">
                 {items.map((item) => (
