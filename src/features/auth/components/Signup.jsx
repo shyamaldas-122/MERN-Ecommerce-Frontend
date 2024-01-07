@@ -23,8 +23,8 @@ export default function Signup() {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             className="mx-auto h-10 w-auto"
-            src="./ecommerce.png"
-            alt="Your Company"
+            src="https://github.com/shyamaldas-122/images/assets/83920184/e3e9be22-ba13-43ef-b67c-581bd3154405"
+            alt="Sign up logo"
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Create a New Account
